@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>webcam</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body{
+                background-color: beige;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <video id="webCampVideo" width="854" height="480" style="border: 1 px black solid" autoplay></video>
+        <canvas id="webCampCanvas" width="854" height="580" style="border: 1 px black solid"></canvas>
+        
+        <button onclick="startCamera();">Mulai kamera</button>
+        <button onclick="ambilCamera();">Ambil foto</button>
+        <button onclick="gantiModekamera();">Ganti mode Kamera</button>
+        <script>
+            var infourl = new URLSearchParams(window.location.search);
+            var wVideo = document.querySelector("#webCampVideo");
+            var wCanvas = document.querySelector("#webCampCanvas");
+            var fm = "user";
+            if(infourl.get("modekamera") == "belakang"){
+                fm = {"exact" : "environment"};
+            }
+            async function startCamera(){
+                var stream = null;
+                try{
+                    stream = await navigator.mediaDevices.getUserMedia({ video : {facingMode : fm } , audio : false});
+                }catch(error){
+                    alert(error);
+                    alert("tidak dilengkapi kamera belakang");
+                }
+                wVideo.srcObject  = stream;
+            }
+            function ambilCamera(){
+                wCanvas.getContext("2d").drawImage(wVideo, 0, 0, 854, 480);
+                var imageData = wCanvas.toDataURL("image/jpeg");
+                // console.log(imageData);
+
+                $.post("simpangambar.php",{
+                    "imagedata" : imageData 
+                },function(data){
+                    console.log(data)
+
+                })
+            }
+            function gantiModekamera(){
+                if(infourl.get("modekamera") == "belakang"){
+                    location.href = location.href.split('?')[0];
+                }else{
+                    location.href = location.href +"?modekamera=belakang";
+                }
+            }
+        </script>
+    </body>
+</html>
