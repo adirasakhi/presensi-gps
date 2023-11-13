@@ -10,6 +10,6 @@ class Site extends Model
     use HasFactory;
     protected $table = 'sites';
     protected $fillable = [
-        'nama', 'latitude', 'longitude',
+        'nama', 'latitude', 'longitude','id'
     ];
 }

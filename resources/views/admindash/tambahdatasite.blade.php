@@ -7,15 +7,17 @@
     <div class="d-flex justify-content-center">
         <div class="card d-flex justify-content-center" style="width: 500px;">
             <div class="card-body">
-                <form action="{{ route('adddepartemenproses') }}" method="POST">
+                <form action="{{ route('addsiteproses') }}" method="POST">
                     @csrf
                     <!-- Form fields go here -->
                     <!-- Example: -->
                     <div class="form-group">
-                        <label for="nama_dept">Nama Departemen :</label>
-                        <input type="text" class="form-control form-control-user" name="nama_dept" id="nama_dept" placeholder="Nama Departemen" value="{{old('nama_dept')}}">
-                        <label for="kode_dept">Kode Departemen :</label>
-                        <input type="text" class="form-control form-control-user" name="kode_dept" id="kode_dept" placeholder="Nama Departemen" min="0" value="{{old('kode_dept')}}">
+                        <label for="nama">Nama site :</label>
+                        <input type="text" class="form-control form-control-user" name="nama" id="nama" placeholder="Nama Departemen" value="{{old('nama')}}">
+                        <label for="latitude">Latitude Site:</label>
+                        <input type="text" class="form-control form-control-user" name="latitude" id="latitude" placeholder="Latitude Site" min="0" value="{{old('latitude')}}">
+                        <label for="longitude">longitude Site:</label>
+                        <input type="text" class="form-control form-control-user" name="longitude" id="longitude" placeholder="Longitude Site" min="0" value="{{old('longitude')}}">
                     <button type="submit" class="btn btn-primary" id="savedept">tambah</button>
                 </form>
             </div>
@@ -32,13 +34,13 @@
             e.preventDefault();
 
             // Get input values
-            const nama_dept = document.querySelector('#nama_dept').value;
-            const kode_dept = document.querySelector('#kode_dept').value;
+            const nama = document.querySelector('#nama').value;
+            const latitude = document.querySelector('#latitude').value;
+            const longitude = document.querySelector('#longitude').value;
 
             // Check if any of the input fields are empty
             if (
-                nama_dept === '' ||
-                kode_dept === ''
+                nama === '' ||latitude === ''||longitude === ''
             ) {
                 // Corrected the Swal.fire
                 Swal.fire('Data harus diisi', 'Semua field harus diisi.', 'error');

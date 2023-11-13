@@ -5,6 +5,7 @@ use App\Models\Departemen;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KaryawanController;
@@ -79,11 +80,18 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/tambahdepartemen', [DepartemenController::class, 'tambahdepartemen'])->name('tambahdepartemen');
     Route::post('/departemen/store', [DepartemenController::class ,'store'])->name('adddepartemenproses');
     Route::post('/departemen/editdepartemen', [DepartemenController::class, 'editdepartemen'])->name('editdepartemen');
-    Route::delete('/delete/{id}', [DepartemenController::class, 'delete'])->name('delete_dept');
+    Route::delete('/delete/{id}', [LokasiController::class, 'delete'])->name('delete_departemen');
     Route::get('/editdatadepartemen/{id}', [DepartemenController::class, 'editdata'])->name('edit_dept');
     // bagian monitoring
     Route::get('/monitoring', [PresensiController::class, 'monitoring'])->name('monitoring');
     Route::post('/getpresensi', [PresensiController::class, 'getpresensi'])->name('getpresensi');
+    //bagian Site
+    Route::get('/lokasisite', [LokasiController::class, 'index'])->name('lokasisite');
+    Route::get('/tambahsite', [LokasiController::class, 'tambahsite'])->name('tambahsite');
+    Route::post('/site/store', [LokasiController::class ,'store'])->name('addsiteproses');
+    Route::post('/site/editsite', [LokasiController::class, 'editsite'])->name('editsite');
+    Route::delete('/delete/{id}', [LokasiController::class, 'delete'])->name('delete_site');
+    Route::get('/editdatasite/{id}', [LokasiController::class, 'editdata'])->name('edit_site');
 
 
 });

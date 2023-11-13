@@ -39,7 +39,8 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <img src="{{asset('assets/img/aa.jpeg')}}" alt="" srcset="">
-                                        login admin
+                                        <br>
+                                        admin
                                     </div>
                                     @if (session('status'))
                                         <div class="alert alert-danger">

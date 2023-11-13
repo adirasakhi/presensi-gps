@@ -32,7 +32,7 @@
                         <th>Nik</th>
                         <th>Nama</th>
                         <th>Departement</th>
-                        <th>Koordinate-Site</th>
+                        <th>Lokasi</th>
                         <th>Jam Mulai</th>
                         <th>Jam Selesai</th>
                         <th>Foto Mulai</th>

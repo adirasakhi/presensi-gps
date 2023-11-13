@@ -1,4 +1,5 @@
 @foreach ($presensi as $d)
+
     <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $d->nik }}</td>
@@ -15,4 +16,6 @@
             <img src="{{ asset('storage/uploads/absensi/' . $d->foto_out) }}"
                 alt="Foto Selesai" width="100">
     </tr>
+
 @endforeach
+
