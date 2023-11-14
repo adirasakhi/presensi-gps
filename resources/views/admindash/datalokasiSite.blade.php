@@ -1,5 +1,6 @@
 @extends('layouts.sidebaradmin')
 @section('container')
+@section('title', 'Site')
 
 @section('container')
 <div class="page-header d-print-none">

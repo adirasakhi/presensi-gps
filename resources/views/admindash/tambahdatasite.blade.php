@@ -1,8 +1,8 @@
 @extends('layouts.sidebaradmin')
-
+@section('title', 'Site')
 @section('container')
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Edit Profile</h1>
+    <h1 class="h3 mb-2 text-gray-800">Tambah Data Site</h1>
 
     <div class="d-flex justify-content-center">
         <div class="card d-flex justify-content-center" style="width: 500px;">

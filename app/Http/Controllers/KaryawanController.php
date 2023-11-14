@@ -64,20 +64,23 @@ class KaryawanController extends Controller
     }
     public function editdatakaryawan($nik){
         $karyawan = Karyawan::find($nik);
+        $departemen =DB::table('departemen')->get();
+
 
         if (!$karyawan) {
             return abort(404); // Or you can handle the case when the employee is not found.
         }
 
-        return view('admindash.editdatakaryawan', compact('karyawan'));
+        return view('admindash.editdatakaryawan', compact('karyawan','departemen'));
     }
     public function editkaryawan(Request $request){
-        $nik = $request->nik;
+    $nik = $request->nik;
     $name = $request->name;
     $phone = $request->phone;
     $tempat_tanggal_lahir = $request->tempat_tanggal_lahir;
     $password = Hash::make($request->password);
     $karyawan = DB::table('karyawan')->where('nik', $nik)->first();
+    $kode_dept = $request->kode_dept;
 
     // Check if a file was uploaded
     if ($request->hasFile('foto')) {
@@ -97,7 +100,9 @@ class KaryawanController extends Controller
             'name' => $name,
             'phone' => $phone,
             'tempat_tanggal_lahir' => $tempat_tanggal_lahir,
-            'foto' => $foto
+            'foto' => $foto,
+            'kode_dept' => $kode_dept
+
         ];
     } else {
         $data = [
@@ -105,6 +110,7 @@ class KaryawanController extends Controller
             'phone' => $phone,
             'tempat_tanggal_lahir' => $tempat_tanggal_lahir,
             'foto' => $foto,
+            'kode_dept' => $kode_dept,
             'password' => $password
         ];
     }

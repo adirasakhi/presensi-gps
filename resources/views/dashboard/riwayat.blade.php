@@ -1,5 +1,5 @@
 @extends('layouts.sidebar') <!-- Jika Anda menggunakan layout bawaan Laravel -->
-
+@section('title', 'Riwayat')
 @section('container')
 <div class="container-fluid">
     <!-- Page Heading -->

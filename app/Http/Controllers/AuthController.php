@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Karyawan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
@@ -43,10 +44,13 @@ class AuthController extends Controller
         return redirect('/panel');
     }
     public function register(){
-        return view('auth.register');
+        $departemen =DB::table('departemen')->get();
+
+        return view('auth.register',compact('departemen'));
     }
 
     public function register_proses(Request $request){
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:karyawan,email',
@@ -56,6 +60,7 @@ class AuthController extends Controller
             'jenis_kelamin' => 'required',
             'tempat_tanggal_lahir' => 'required',
             'phone' => 'required',
+            'kode_dept' => 'required',
         ]);
 
         $data = [
@@ -67,6 +72,8 @@ class AuthController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'tempat_tanggal_lahir' => $request->tempat_tanggal_lahir,
             'phone' => $request->phone,
+            'kode_dept' => $request->kode_dept,
+
         ];
 
         Karyawan::create($data);

@@ -1,4 +1,5 @@
 @extends('layouts.sidebaradmin')
+@section('title', 'Departemen')
 
 @section('container')
 <div class="container-fluid">

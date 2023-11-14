@@ -25,6 +25,7 @@ class Karyawan extends Authenticatable
         'tempat_tanggal_lahir',
         'jenis_kelamin',
         'foto',
+        'kode_dept',
 
     ];
 

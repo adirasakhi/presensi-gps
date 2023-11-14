@@ -1,5 +1,5 @@
 @extends('layouts.sidebar')
-
+@section('title', 'Absen')
 @section('container')
 <style>
     .webcam-capture,

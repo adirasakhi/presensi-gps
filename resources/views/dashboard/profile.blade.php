@@ -1,4 +1,6 @@
 @extends('layouts.sidebar')
+@section('title', 'Profile')
+
 @section('container')
      <!-- Begin Page Content -->
                 <div class="container-fluid">

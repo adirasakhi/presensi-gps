@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Register</title>
+    <title>Register</title>
+    <link rel="icon" href="{{ asset('assets/img/logo.png') }}">
+
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -44,13 +46,29 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" name="tempat_tanggal_lahir" id="tempat_tanggal_lahir" placeholder="Tempat Tanggal Lahir" min="0" value="{{old('tempat_tanggal_lahir')}}">
+                                            <label for="tempat_tanggal_lahir">Tanggal Lahir</label>
+                                            <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                                                <input class="form-control" type="text" id="tempat_tanggal_lahir" name="tempat_tanggal_lahir" >
+                                                <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" name="phone" id="phone" placeholder="No Telp" min="0" value="{{old('phone')}}">
                                         </div>
+                                        <div class="form-group">
+                                            <select name="kode_dept" id="kode_dept" class="form-control" {{old('kode_dept')}}>
+                                                <option value="">Departemen</option>
+                                                @foreach ($departemen as $item)
+                                                    <option {{ Request('kode_dept')==$item->kode_dept ? 'selected':'' }} value="{{ $item->kode_dept }}">{{ $item->nama_dept }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
 
                                                 <div class="form-group">
+                                                    <div></div>
                                                     <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="Email" value="{{old('email')}}">
                                                 </div>
                                                 <div class="form-group">
@@ -80,6 +98,11 @@
     <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
+    <!-- Include Bootstrap Datepicker CSS and JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
     <script>
         // Validasi di sisi klien
         document.getElementById('registration-form').addEventListener('submit', function (event) {
@@ -97,6 +120,36 @@
                 event.preventDefault(); // Mencegah pengiriman formulir jika ada kesalahan
             }
         });
+        $(document).ready(function(){
+        $('#datepicker').datepicker();
+
+        $("#tanggal").change(function(e){
+            var tanggal = $(this).val();
+            console.log("Selected date: " + tanggal);
+
+            $.ajax({
+                type: 'POST',
+                url: '/getpresensi',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    tanggal: tanggal
+                },
+                cache: false,
+                success: function(response){
+                    console.log("AJAX Success!");
+                    console.log(response);
+                    $("#loadpresensi").html(response);
+                },
+                error: function(xhr, status, error){
+                    console.error("AJAX Error!");
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        // Test if this part is executed
+        console.log("JavaScript loaded successfully");
+    });
     </script>
 </body>
 </html>

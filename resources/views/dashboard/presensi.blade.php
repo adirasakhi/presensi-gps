@@ -1,4 +1,5 @@
 @extends('layouts.sidebar')
+@section('title', 'Home')
 @section('container')
     <div class="container-fluid">
 
@@ -7,7 +8,7 @@
                         <div class="row page-titles mx-0">
                             <div class="col-sm-6 p-md-0">
                                 <div class="welcome-text">
-                                    <h4>Hi, Selamat datang</h4>
+                                    <h4>Hi, Selamat datang {{ $karyawan->nama }}</h4>
                                 </div>
                             </div>
                         </div>

@@ -47,6 +47,8 @@ Route::middleware(['auth:karyawan'])->group(function () {
 
     Route::get('/prosesLogout', [AuthController::class , 'prosesLogout'])->name('prosesLogout');
     // presensi
+    Route::post('/presensi/izin', [PresensiController::class, 'storeIzin'])->name('presensi.storeIzin');
+
     Route::get('/presensi/create', [PresensiController::class, 'create'])->name('presensi.create');
 
     Route::post('/presensi/store', [PresensiController::class, 'store'])->name('presensi.store');
@@ -80,7 +82,7 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/tambahdepartemen', [DepartemenController::class, 'tambahdepartemen'])->name('tambahdepartemen');
     Route::post('/departemen/store', [DepartemenController::class ,'store'])->name('adddepartemenproses');
     Route::post('/departemen/editdepartemen', [DepartemenController::class, 'editdepartemen'])->name('editdepartemen');
-    Route::delete('/delete/{id}', [LokasiController::class, 'delete'])->name('delete_departemen');
+    Route::delete('/delete-departemen/{id}', [DepartemenController::class, 'delete'])->name('delete_departemen');
     Route::get('/editdatadepartemen/{id}', [DepartemenController::class, 'editdata'])->name('edit_dept');
     // bagian monitoring
     Route::get('/monitoring', [PresensiController::class, 'monitoring'])->name('monitoring');

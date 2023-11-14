@@ -1,5 +1,5 @@
 @extends('layouts.sidebar')
-
+@section('title', 'Site')
 @section('container')
 <div class="container-fluid">
     <!-- Page Heading -->

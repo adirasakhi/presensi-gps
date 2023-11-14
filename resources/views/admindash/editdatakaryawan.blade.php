@@ -7,31 +7,46 @@
     <div class="d-flex justify-content-center">
         <div class="card d-flex justify-content-center" style="width: 500px;">
             <div class="card-body">
-                <form action="{{ route('editkaryawan') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('editkaryawan') }}" method="POST" enctype="multipart/form-data" id="editForm">
                     @csrf
                     @method('POST')
-
-                    <!-- Display the current profile photo -->
-                    <input type="file" name="foto">
-
                     <div class="form-group">
-                        <label for="name">Name</label>
+                    <!-- Display the current profile photo -->
+                    <label for="foto">Foto Profile</label>
+                    <br>
+                    <input type="file" name="foto">
+                </div>
+                    <div class="form-group">
+                        <label for="name">Nama</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ $karyawan->name }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
+                        <label for="phone">Nomor Handphone</label>
                         <input type="text" class="form-control" id="phone" name="phone" value="{{ $karyawan->phone }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="tempat_tanggal_lahir">Date of Birth</label>
-                        <input type="text" class="form-control" id="tempat_tanggal_lahir" name="tempat_tanggal_lahir" value="{{ $karyawan->tempat_tanggal_lahir }}">
+                        <label for="tempat_tanggal_lahir">Tanggal Lahir</label>
+                        <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input class="form-control" type="text" id="tempat_tanggal_lahir" name="tempat_tanggal_lahir" value="{{ $karyawan->tempat_tanggal_lahir }}">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="nik">NIK</label>
                         <input type="text" class="form-control" id="nik" name="nik" value="{{ $karyawan->nik }}">
+                    </div>
+                    <div class="form-group">
+                        <select name="kode_dept" id="kode_dept" class="form-control" {{old('kode_dept')}}>
+                            <option value="">Departemen</option>
+                            @foreach ($departemen as $item)
+                                <option {{ Request('kode_dept')==$item->kode_dept ? 'selected':'' }} value="{{ $item->kode_dept }}">{{ $item->nama_dept }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -39,33 +54,70 @@
                         <input type="password" class="form-control" id="password" name="password">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary" id="savedept">Update</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('form');
-        const submitButton = document.querySelector('#savekaryawan');
+        const form = document.querySelector('#editForm');
 
-        submitButton.addEventListener('click', function (e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Get input values
-            const nik = document.querySelector('#nik').value;
-            const name = document.querySelector('#name').value;
-            const email = document.querySelector('#email').value;
-            const jabatan = document.querySelector('#jabatan').value;
-            const phone = document.querySelector('#phone').value;
-            const tempat_tanggal_lahir = document.querySelector('#tempat_tanggal_lahir').value;
-            const jenis_kelamin = document.querySelector('#jenis_kelamin').value;
-            const kode_dept = document.querySelector('#kode_dept').value;
-            const password = document.querySelector('#password').value;
+            // Validate your form inputs here if needed
 
-            form.submit();
-                Swal.fire('Success', 'Data berhasil Diupdate', 'success');
+            // Submit the form using AJAX
+            axios.post('{{ route("editkaryawan") }}', new FormData(form))
+                .then(function (response) {
+                    // Handle success
+                    Swal.fire('Success', 'Data berhasil Diupdate', 'success');
+                       // Redirect to the datakaryawan route
+                       window.location.href = '{{ route("datakaryawan") }}';
+                })
+                .catch(function (error) {
+                    // Handle errors if any
+                    console.error('Error submitting form', error);
+                });
+        });
+    });
+    $(document).ready(function(){
+        $('#datepicker').datepicker();
+
+        $("#tempat_tanggal_lahir").change(function(e){
+            var tempat_tanggal_lahir = $(this).val();
+            console.log("Selected date: " + tempat_tanggal_lahir);
+
+            $.ajax({
+                type: 'POST',
+                url: '/getpresensi',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    tempat_tanggal_lahir: tempat_tanggal_lahir
+                },
+                cache: false,
+                success: function(response){
+                    console.log("AJAX Success!");
+                    console.log(response);
+                    $("#loadpresensi").html(response);
+                },
+                error: function(xhr, status, error){
+                    console.error("AJAX Error!");
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        // Test if this part is executed
+        console.log("JavaScript loaded successfully");
+    });
 </script>
 @include('layouts.footer')
 @include('layouts.script')

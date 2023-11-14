@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="{{ asset('assets/img/logo.png') }}">
 
-    <title>Dashboard</title>
+    <title>@yield('title', 'Judul Default')</title>
 
     <!-- Custom fonts for this template -->
     <link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -43,9 +44,37 @@
      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 </head>
+<style>body {
+    overflow: hidden;
+  }
 
+
+  /* Preloader */
+
+  #preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    /* change if the mask should have another color then white */
+    z-index: 99;
+    /* makes sure it stays on top */
+  }
+
+  #status {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+  }</style>
 <body id="page-top">
-
+    <div id="preloader">
+        <div ><img src="{{ asset('assets/loader/loading.gif') }} "id="status" >&nbsp;</div>
+      </div>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -187,6 +216,15 @@
     {{-- <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(window).on('load', function() { // makes sure the whole site is loaded
+        setTimeout(function() {
+            $('#status').fadeOut(); // will first fade out the loading animation
+            $('#preloader').delay(100).fadeOut('slow'); // will fade out the white DIV that covers the website.
+            $('body').delay(100).css({'overflow':'visible'});
+        }, 1000);
+    })
+</script>
 
 </body>
 
