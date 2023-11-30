@@ -4,7 +4,7 @@
         <td>{{ $loop->iteration }}</td>
         <td>{{ $d->nik }}</td>
         <td>{{ $d->name }}</td>
-        <td>{{ $d->nama_dept }}</td>
+        <td>{{ $d->perusahaan }}</td>
         <td>{{ $d->lokasi_in }}</td>
         <td>{{ $d->jam_in }}</td>
         <td>{{ $d->jam_out }}</td>

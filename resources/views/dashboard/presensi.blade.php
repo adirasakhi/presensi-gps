@@ -8,7 +8,7 @@
                         <div class="row page-titles mx-0">
                             <div class="col-sm-6 p-md-0">
                                 <div class="welcome-text">
-                                    <h4>Hi, Selamat datang {{ $karyawan->nama }}</h4>
+                                    <h4>Hi, Selamat datang Silahkan Absen Terlebih dahulu!!!</h4>
                                 </div>
                             </div>
                         </div>
@@ -78,105 +78,44 @@
     </script>
                         {{-- akhir script tanggal --}}
                     </div>
-                        <div class="row">
-                        <div class="col-6 border-right">
-                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                            @if ($presensihariini != null && $presensihariini->foto_in != null)
-                            <button class="btn btn-danger" disabled id="btn-absen-masuk">Masuk</button>
-                        @else
-                            <a href="{{ route('presensi.create') }}"><button class="btn btn-danger" id="btn-absen-masuk">Masuk</button></a>
-                        @endif
-                        <p id="absen-masuk" class="m-0">Masuk</p>
-                    </div>
-                    <div class="bootstrap-modal">
-                        <!-- Modal -->
-                        <div class="modal fade" id="masukModal">
-                            <div class="modal-dialog" role="document">
-                                <form action="partisipant/mulai" method="post" enctype="multipart/form-data">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title">Masuk</h5>
-                                <button type="button" class="close" data-dismiss="modal"><span>×</span>
-                                </button>
-                                </div>
-                        <div class="modal-body">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                <span class="input-group-text">Akses Kamera</span>
-                            </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="image">
-                                <label class="custom-file-label">Pilih Foto</label>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                        <span class="input-group-text">Keterangan</span>
-                            </div>
-                        <div class="custom-file">
-                            <!-- jenis absen -->
-                            <select name="presence_type" id="inputState" class="form-control">
-                                <option name="presence_type" selected="">Pilih Keadaan Site</option>
-                                <option value="1">Akses Lancar</option>
-                                <option value="2">Block Akses</option>
-                            </select>
-                        </div>
-                        </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Simpan</button>
-                        </div>
-                        </div>
-                        </form>
-                        <!-- akhir form -->
-                        </div>
-                        </div>
-                        <div class="modal fade" id="selesaiModal">
-                        <div class="modal-dialog" role="document">
-                            <form action="partisipant/selesai" method="post" enctype="multipart/form-data">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Absen Pulang</h5>
-                            <button type="button" class="close" data-dismiss="modal"><span>×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                        <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Unggah</span>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="image">
-                            <label class="custom-file-label">Pilih Foto</label>
-                        </div>
-                        </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Simpan</button>
-                        </div>
-                        </div>
-                            </form>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
+                        {{-- <div class="row d-flex justify-content-center">
                         <div class="col-6">
                         <div class="pt-3 pb-3 pl-0 pr-0 text-center">
                             @if ($presensihariini != null && $presensihariini->foto_in != null)
-                            @if ($presensihariini->foto_out != null)
-                                <button class="btn btn-danger" disabled>Selesai</button>
-                            @else
-                                <a href="{{ route('presensi.create') }}" class="btn btn-danger" id="absen-selesai">Selesai</a>
-                            @endif
+                            <button class="btn btn-danger" disabled id="btn-absen-masuk">kirim</button>
                         @else
-                            <button class="btn btn-danger" onclick="showAbsenAlert()" id="btn-absen-selesai">Selesai</button>
+                            <a href="{{ route('presensi.izin') }}"><button class="btn btn-danger" id="btn-absen-masuk">kirim</button></a>
                         @endif
-                        <p class="m-0">Pulang</p>
+                        <p id="absen-masuk" class="m-0">Kirim Data disini Untuk membuka absen masuk</p>
+                        </div>
+                        </div>
+                        </div> --}}
+                        <div class="row">
+                            <div class="col-6 border-right">
+                            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                                @if ($presensihariini != null && $presensihariini->foto_in != null)
+                                <button class="btn btn-danger" disabled id="btn-absen-masuk">Masuk</button>
+                            @else
+                                <a href="{{ route('presensi.create') }}"><button class="btn btn-danger" id="btn-absen-masuk">Masuk</button></a>
+                            @endif
+                            <p id="absen-masuk" class="m-0">Masuk</p>
+                            </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                                    @if ($presensihariini != null && $presensihariini->foto_in != null)
+                                    @if ($presensihariini->foto_out != null)
+                                        <button class="btn btn-danger" disabled>Selesai</button>
+                                    @else
+                                        <a href="{{ route('presensi.create') }}" class="btn btn-danger" id="absen-selesai">Selesai</a>
+                                    @endif
+                                @else
+                                    <button class="btn btn-danger" onclick="showAbsenAlert()" id="btn-absen-selesai">Selesai</button>
+                                @endif
+                                <p class="m-0">Pulang</p>
+                            </div>
+                            </div>
 
-                        </div>
-                        </div>
                         </div>
                         </div>
                         </div>
@@ -196,7 +135,7 @@
                                             <table id="example" class="table table-bordered" style="min-width: 845px" role="grid" aria-describedby="example_info">
                                                 <thead>
                                                     <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="No: activate to sort column descending" style="width: 27.7344px;">No</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Hari, Tanggal: activate to sort column ascending" style="width: 204.812px;">Hari, Tanggal</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Hari, Tanggal: activate to sort column ascending" style="width: 204.812px;">Hari, Tanggal</th>                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Hari, Tanggal: activate to sort column ascending" style="width: 204.812px;">Detail Pekerjaan</th>
                                                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Foto Mulai: activate to sort column ascending" style="width: 86.7656px;">Foto Mulai</th>
                                                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Foto Selesai: activate to sort column ascending" style="width: 100.984px;">Foto Selesai</th>
                                                     </tr>
@@ -211,6 +150,12 @@
                                                     @else
                                                         Belum Absen
                                                     @endif</td>
+                                                    <td> @if (isset($presensihariini) && $presensihariini->detail != null)
+                                                        {{ $presensihariini->detail }}
+                                                @else
+                                                    Belum Absen
+                                                @endif</td>
+
                                                     <td>
                                                         @if ($presensihariini != null)
                                                         @php

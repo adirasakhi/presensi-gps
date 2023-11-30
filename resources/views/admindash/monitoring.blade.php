@@ -32,7 +32,7 @@
                         <th>No</th>
                         <th>Nik</th>
                         <th>Nama</th>
-                        <th>Departement</th>
+                        <th>perusahaan</th>
                         <th>Lokasi</th>
                         <th>Jam Mulai</th>
                         <th>Jam Selesai</th>

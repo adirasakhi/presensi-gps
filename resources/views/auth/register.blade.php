@@ -27,8 +27,12 @@
                                     <div class="text-center">
                                         <img src="{{asset('assets/img/aa.jpeg')}}" alt="" srcset="">
                                     </div>
-                                    <form class="user" method="POST" action="{{ route('register.proses') }}" id="registration-form">
+                                    <form class="user" method="POST" action="{{ route('register.proses') }}" id="registration-form" enctype="multipart/form-data">
                                         @csrf
+                                        <div class="form-group">
+                                            <label for="face">Upload Foto<small>Note : Wajib Mengirimkan Foto Wajah </small></label>
+                                            <input type="file" class="form-control-file" id="face" name="face">
+                                        </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" name="name" id="name" placeholder="Nama Lengkap" value="{{old('name')}}">
                                         </div>
@@ -41,30 +45,22 @@
                                         <div class="form-group">
                                             <label for="jenis_kelamin" style="margin-left: 10px">Jenis Kelamin</label>
                                             <select name="jenis_kelamin" id="jenis_kelamin" style="margin-left: 120px">
+                                                <option value="laki-laki">Pilih</option>
                                                     <option value="laki-laki">laki-laki</option>
                                                     <option value="perempuan">perempuan</option>
                                             </select>
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="tempat_tanggal_lahir">Tanggal Lahir</label>
-                                            <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-                                                <input class="form-control" type="text" id="tempat_tanggal_lahir" name="tempat_tanggal_lahir" >
-                                                <span class="input-group-addon">
-                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                </span>
-                                            </div>
+                                            <input type="text" class="form-control form-control-user" name="plat_no" id="plat_no" placeholder="Plat Kendaraan" min="0" value="{{old('plat_no')}}">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" name="phone" id="phone" placeholder="No Telp" min="0" value="{{old('phone')}}">
                                         </div>
                                         <div class="form-group">
-                                            <select name="kode_dept" id="kode_dept" class="form-control" {{old('kode_dept')}}>
-                                                <option value="">Departemen</option>
-                                                @foreach ($departemen as $item)
-                                                    <option {{ Request('kode_dept')==$item->kode_dept ? 'selected':'' }} value="{{ $item->kode_dept }}">{{ $item->nama_dept }}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" class="form-control form-control-user" name="perusahaan" id="perusahaan" placeholder="perusahaan" min="0" value="{{old('perusahaan')}}">
                                         </div>
+
 
 
                                                 <div class="form-group">

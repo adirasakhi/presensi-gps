@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Karyawan;
-use App\Models\Departemen;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiteController;
@@ -11,9 +10,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DepartemenController;
-use App\Http\Controllers\MonitoringController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,14 +45,18 @@ Route::middleware(['auth:karyawan'])->group(function () {
 
     Route::get('/prosesLogout', [AuthController::class , 'prosesLogout'])->name('prosesLogout');
     // presensi
-    Route::post('/presensi/izin', [PresensiController::class, 'storeIzin'])->name('presensi.storeIzin');
+    Route::get('/presensi/izin', [PresensiController::class, 'storeizin'])->name('presensi.izin');
+    Route::post('/presensi/storeizin', [PresensiController::class, 'datastore'])->name('presensi.storeizin');
 
     Route::get('/presensi/create', [PresensiController::class, 'create'])->name('presensi.create');
 
     Route::post('/presensi/store', [PresensiController::class, 'store'])->name('presensi.store');
     Route::get('/edit-profile', [PresensiController::class ,'edit'])->name('edit-profile');
     Route::post('/update-profile', [PresensiController::class ,'update'])->name('update-profile');
-
+    // verification
+    Route::get('/verfication', [VerificationController::class ,'index'])->name('verification');
+    Route::get('/user/face-image', [UserController::class, 'getUserFaceImage']);
+    Route::get('/send-presensi-email', [PresensiController::class, 'sendPresensiEmail']);
 });
 
 
@@ -75,15 +77,8 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/panel/tambahkaryawan', [KaryawanController::class, 'tambahkaryawan'])->name('tambahkaryawan');
     Route::post('/karyawan/store', [KaryawanController::class ,'store'])->name('addkaryawanproses');
     Route::post('/karyawan/editkaryawan', [KaryawanController::class, 'editkaryawan'])->name('editkaryawan');
-    Route::get('/panel/editdatakaryawan/{nik}', [KaryawanController::class, 'editdatakaryawan'])->name('editdatakaryawan');
     Route::post('/delete/{nik}', [KaryawanController::class, 'delete'])->name('delete');
-    // bagian departemen
-    Route::get('/departemen', [DepartemenController::class, 'index'])->name('departemen');
-    Route::get('/tambahdepartemen', [DepartemenController::class, 'tambahdepartemen'])->name('tambahdepartemen');
-    Route::post('/departemen/store', [DepartemenController::class ,'store'])->name('adddepartemenproses');
-    Route::post('/departemen/editdepartemen', [DepartemenController::class, 'editdepartemen'])->name('editdepartemen');
-    Route::delete('/delete-departemen/{id}', [DepartemenController::class, 'delete'])->name('delete_departemen');
-    Route::get('/editdatadepartemen/{id}', [DepartemenController::class, 'editdata'])->name('edit_dept');
+
     // bagian monitoring
     Route::get('/monitoring', [PresensiController::class, 'monitoring'])->name('monitoring');
     Route::post('/getpresensi', [PresensiController::class, 'getpresensi'])->name('getpresensi');

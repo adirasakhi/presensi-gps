@@ -15,9 +15,21 @@
         height: 400px; /* Tinggi peta disesuaikan untuk menampilkan semua lingkaran */
     }
 </style>
+
 <div class="row" style="margin-top: 50px">
     <div class="col">
         <input type="text" id="lokasi">
+        <form action="#" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
+
+            <!-- Display the current profile photo -->
+
+            <div class="form-group">
+                <label for="detail">Detail Pekerjaan</label>
+                <input type="text" class="form-control" id="detail" name="detail" >
+            </div>
+        </form>
         <div class="webcam-capture"></div>
     </div>
 </div>
@@ -120,13 +132,15 @@
         Webcam.snap(function (image) {
             // Menggunakan callback untuk mendapatkan gambar
             var lokasi = $("#lokasi").val();
+            var detail = $("#detail").val();
             $.ajax({
                 type: 'POST',
                 url: '/presensi/store',
                 data: {
                     _token: '{{ csrf_token() }}',
                     image: image,
-                    lokasi: lokasi
+                    lokasi: lokasi,
+                    detail: detail
                 },
                 cache: false,
                 success: function (response) {

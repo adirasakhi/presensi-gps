@@ -25,8 +25,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="tempat_tanggal_lahir">Date of Birth</label>
-                        <input type="text" class="form-control" id="tempat_tanggal_lahir" name="tempat_tanggal_lahir" value="{{ $karyawan->tempat_tanggal_lahir }}">
+                        <label for="plat_no">Plat Kendaraan</label>
+                        <input type="text" class="form-control" id="plat_no" name="plat_no" value="{{ $karyawan->plat_no }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="perusahaan">Perusahaan</label>
+                        <input type="text" class="form-control" id="perusahaan" name="perusahaan" value="{{ $karyawan->perusahaan }}">
                     </div>
 
                     <div class="form-group">

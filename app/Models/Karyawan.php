@@ -22,10 +22,11 @@ class Karyawan extends Authenticatable
         'jabatan',
         'phone',
         'password',
-        'tempat_tanggal_lahir',
+        'plat_no',
+        'perusahaan',
         'jenis_kelamin',
         'foto',
-        'kode_dept',
+        'face',
 
     ];
 

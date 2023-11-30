@@ -17,7 +17,7 @@ class AuthController extends Controller
     //
     public function prosesLogin(Request $request){
         if(Auth::guard('karyawan')->attempt(['email' => $request -> email, 'password' => $request -> password])){
-            return redirect('/home');
+            return redirect('/verfication');
         }else{
             return redirect('/')->with('failed','Email Atau Password Salah');
         }
@@ -44,9 +44,8 @@ class AuthController extends Controller
         return redirect('/panel');
     }
     public function register(){
-        $departemen =DB::table('departemen')->get();
 
-        return view('auth.register',compact('departemen'));
+        return view('auth.register');
     }
 
     public function register_proses(Request $request){
@@ -58,9 +57,10 @@ class AuthController extends Controller
             'nik' => 'required|unique:karyawan,nik',
             'jabatan' => 'required',
             'jenis_kelamin' => 'required',
-            'tempat_tanggal_lahir' => 'required',
+            'plat_no' => 'required',
+            'perusahaan' => 'required',
             'phone' => 'required',
-            'kode_dept' => 'required',
+            'face' => 'required',
         ]);
 
         $data = [
@@ -70,12 +70,20 @@ class AuthController extends Controller
             'nik' => $request->nik,
             'jabatan' => $request->jabatan,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'tempat_tanggal_lahir' => $request->tempat_tanggal_lahir,
+            'plat_no' => $request->plat_no,
+            'perusahaan' => $request->perusahaan,
             'phone' => $request->phone,
-            'kode_dept' => $request->kode_dept,
 
         ];
 
+        if ($request->hasFile('face')) {
+            $file = $request->file('face');
+            $fileName = $request->input('email') . '_face.jpg';
+            $file->move(public_path('uploads'), $fileName);
+
+            // Save the file name to the database
+            $data['face'] = $fileName;
+        }
         Karyawan::create($data);
 
         $login = [

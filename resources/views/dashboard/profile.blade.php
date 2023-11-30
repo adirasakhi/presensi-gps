@@ -58,8 +58,8 @@
                                     <label type="gender" id="gender">: {{ Auth::guard('karyawan')->user()->jenis_kelamin }}</label>
                                   </div>
                                 <div class="form-group d-flex">
-                                    <label for="date" style="margin-right: 5px">Tempat,Tanggal Lahir </label>
-                                    <label type="date" id="date">: {{ Auth::guard('karyawan')->user()->tempat_tanggal_lahir }}</label>
+                                    <label for="plat_no" style="margin-right: 5px">Plat Kendaraan</label>
+                                    <label type="plat_no" id="plat_no">: {{ Auth::guard('karyawan')->user()->plat_no }}</label>
                                   </div>
                                 <div class="form-group d-flex">
                                     <label for="notelp" style="margin-right: 80px">No telepon </label>
@@ -68,6 +68,10 @@
                                 <div class="form-group d-flex">
                                     <label for="jabatan" style="margin-right: 105px">Jabatan </label>
                                     <label type="jabatan" id="jabatan">: {{ Auth::guard('karyawan')->user()->jabatan }}</label>
+                                  </div>
+                                  <div class="form-group d-flex">
+                                    <label for="perusahaan" style="margin-right: 5px">Perusahaan</label>
+                                    <label type="perusahaan" id="perusahaan">: {{ Auth::guard('karyawan')->user()->perusahaan }}</label>
                                   </div>
                                 <div class="d-flex justify-content-center"><a href="{{ route('edit-profile') }}">
                                     <button class="btn btn-danger">Edit</button>

@@ -17,6 +17,7 @@
                             <th>No</th>
                             <th>Hari, Tanggal</th>
                             <th>Koordinate-Site</th>
+                            <th>Detail Pekerjaan</th>
                             <th>Jam Mulai</th>
                             <th>Jam Selesai</th>
                             <th>Foto Mulai</th>
@@ -29,6 +30,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ \Carbon\Carbon::parse($absen->tgl_presensi)->format('l, d F Y') }}</td>
                             <td>{{ $absen->lokasi_in }}</td>
+                            <td>{{ $absen->detail }}</td>
                             <td>{{ $absen->jam_in }}</td>
                             <td>{{ $absen->jam_out }}</td>
                             <td>
